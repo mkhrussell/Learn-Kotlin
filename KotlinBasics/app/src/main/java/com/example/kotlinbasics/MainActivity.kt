@@ -3,6 +3,8 @@ package com.example.kotlinbasics
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.ListView
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,13 +13,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//
-//        var countries: Array<String> = Array<String>(6) {"Bangladesh"}
-//        countries[1] = "India"
-//        countries[2] = "Pakistan"
 
-        var countries: Array<String> = arrayOf("Bangladesh", "India", "Pakistan")
+        val countries: Array<String> = arrayOf("Bangladesh", "India", "Pakistan", "Srilanka", "Bhutan", "Nepal", "Afganistan", "Maldives")
+        val adapter = ArrayAdapter<String>(applicationContext, android.R.layout.simple_list_item_1, countries)
 
-        Log.d(TAG, "onCreate: ${ countries[0] }, ${ countries[2] }")
+        val lstCountries = findViewById(R.id.lstCountries) as ListView
+        lstCountries.adapter = adapter
     }
 }
