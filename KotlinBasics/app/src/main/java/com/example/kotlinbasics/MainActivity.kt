@@ -11,16 +11,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+//
+//        var countries: Array<String> = Array<String>(6) {"Bangladesh"}
+//        countries[1] = "India"
+//        countries[2] = "Pakistan"
 
-        val myValueOne = "Apple" // Immutable variable
-        val myValueThree: String
-        var myValueTwo = "Apple" // Mutable
-        myValueTwo = "Orange"
-        myValueThree = "Apple"
+        var countries: Array<String> = arrayOf("Bangladesh", "India", "Pakistan")
 
-        var myVar: Int = 100
-        var myVar2 = 100
-
-        Log.d(TAG, "onCreate: $myValueOne, $myValueTwo, ${myValueThree.length}")
+        Log.d(TAG, "onCreate: ${ countries[0] }, ${ countries[2] }")
     }
 }
