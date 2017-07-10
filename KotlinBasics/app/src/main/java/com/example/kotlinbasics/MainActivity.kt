@@ -2,9 +2,7 @@ package com.example.kotlinbasics
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.ListView
+import android.util.Log
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,21 +12,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val countries = mutableListOf<String>("Bangladesh", "India") //, "Pakistan", "Srilanka", "Bhutan", "Nepal", "Afganistan", "Maldives")
-        val adapter = ArrayAdapter<String>(applicationContext, android.R.layout.simple_list_item_1, countries)
+//        var nonNullName = "Russell"
+//        var nullableName: String? = "Russell"
+//        nullableName = null
+//        var nonNullVar2 = "John"
+//        nonNullName = nullableName ?: nonNullVar2 // Elvis operator
 
-        val lstCountries = findViewById(R.id.lstCountries) as ListView
-        lstCountries.adapter = adapter
+//        var countryName: String? = null
+//        countryName = "Bangladesh"
+//        Log.d(TAG, "onCreate: " + countryName?.toUpperCase()) // good way
+//        Log.d(TAG, "onCreate: " + countryName!!.toUpperCase()) // Dangerous
 
-        var edtCountry = findViewById(R.id.edtCountry) as EditText
-        findViewById(R.id.btnAdd).setOnClickListener {
-            var countryValue = edtCountry.text.toString()
-
-            if (!countryValue.isNullOrBlank()) {
-                adapter.add(countryValue)
-                adapter.notifyDataSetChanged()
-                edtCountry.setText("")
-            }
+        /*
+        if(countryName != null) {
+            Log.d(TAG, "onCreate: " + countryName.toUpperCase())
         }
+        */
+
+        var intValue = 8000000
+        var strValue = intValue as? String
+
+        Log.d(TAG, "onCreate: " + strValue?.toUpperCase())
     }
 }
