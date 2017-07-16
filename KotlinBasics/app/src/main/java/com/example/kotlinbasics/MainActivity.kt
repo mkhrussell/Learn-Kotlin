@@ -14,46 +14,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var personOne = Person("Russell")
+        personOne.age = 30
+        Log.d(TAG, "onCreate: Person one: name = ${personOne.name}, age = ${personOne.age}")
+
+        var personTwo = Person("John", 35)
+        Log.d(TAG, "onCreate: Person two: name = ${personTwo.name}, age = ${personTwo.age}")
+
 
         Log.d(TAG, "onCreate: ends")
     }
 }
 
-class MyClass constructor() : Any() {
-    // Body
-
-    // Members:
-    // 1. Constructors
-    // 2. Variables
-    // 3. Properties
-    // 4. Functions
-    // 5. Nested classes / inner classes
-    // 6. object declarations with 'object' keyword
-}
-
-// Constructor
-/*
-class Person public constructor(name: String) : Any() { // All kotlin classes are subclass of 'Any' class
-    // Body
-}
-
-// same as above: removed 'Any' constructor call
-class Person public constructor(name: String) {
-    // Body
-}
-
-//same as above: only one public constructor:
-class Person constructor(name: String) {
-    // Body
-}
-
-// same as above: removed 'constructor' keyword
 class Person(name: String) {
-    // Body
+    var name: String
+    var age: Int = 0
+
+    init {
+        this.name = name
+    }
+
+    constructor(name: String, age: Int) : this(name) {
+        this.age = age
+    }
 }
-
-// same as above: removed empty body '{}'
-class Person(name: String)
-*/
-
-class Person(name: String)
