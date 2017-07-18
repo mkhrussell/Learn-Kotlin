@@ -13,77 +13,60 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var personOne = Person("Russell")
-        personOne.age = 30
-        personOne.gender = "Male"
-        Log.d(TAG, "onCreate: Person one: name = ${personOne.name}, age = ${personOne.age}")
+//        var base: Base = Base()
+//        base.sayHello()
+//        Log.d(TAG, "onCreate: base.name = ${base.name}")
+//
+//        var derived: Derived = Derived()
+//        derived.sayHello()
+//        Log.d(TAG, "onCreate: derived.name = ${derived.name}")
+//        derived.tellYourName()
+//
+//        var derivedTwo: DerivedTwo = DerivedTwo()
+//        derivedTwo.sayHello()
+//        Log.d(TAG, "onCreate: derivedTwo.name = ${derivedTwo.name}")
+//        derivedTwo.tellYourName()
 
-        var personTwo = Person("John", 60)
-        personTwo.height = 60.0
-        personTwo.gender = "Male"
-        Log.d(TAG, "onCreate: Person two: name = ${personTwo.name}, age = ${personTwo.age}, height = ${personTwo.height} inch, isTeenager = ${personTwo.isTeenager}")
+        var baseObj: Base = Base()
+        baseObj.sayHello()
 
-        var personThree = Person("Anne")
-        personThree.gender = "Female"
-        Log.d(TAG, "onCreate: Person three: name = ${personThree.name}, gender = ${personThree.gender}")
+        baseObj = Derived()
+        baseObj.sayHello()
+
+        baseObj = DerivedTwo()
+        baseObj.sayHello()
+
 
         Log.d(TAG, "onCreate: ends")
     }
 }
 
-class Person(name: String) {
-    var name: String
-    var age: Int = 0
+open class Base {
+    open val name: String = "Base"
 
-    init {
-        this.name = name
+    fun tellYourName() {
+        Log.d(javaClass.simpleName, "My name is: ${name}.")
     }
 
-    constructor(name: String, age: Int) : this(name) {
-        this.age = age
+    open fun sayHello() {
+        Log.d("Base", "Hello from Base.")
     }
+}
 
-    private var _height: Double = 0.0
-    public var height: Double
-        get() = _height
-        set(value) {
-            _height = value
-        }
+class Derived : Base() {
+    val id: Int = 100
+    override val name: String = "Derived"
 
-//    var isTeenager: Boolean = false // Readonly property
-//        private set
-//        get() {
-//            var ret: Boolean = false
-//            if(age >= 13 && age <= 19) {
-//                ret = true
-//            }
-//
-//            return ret
-//        }
+    override fun sayHello() {
+        //super.sayHello()
+        Log.d(javaClass.simpleName, "My name is: ${name} and my id is: ${id}.")
+    }
+}
 
-    var isTeenager: Boolean = false
-        private set
-        get() = (age >= 13 && age <= 19)
-
-    var gender: String = ""
-        get() {
-            throw Exception("Gender info is private.")
-        }
-        set(value) {
-            if (value.isNullOrBlank()) {
-                throw Exception("Gender must be Male or Female")
-            } else if (value.equals("Male") || value.equals("Female")) {
-                field = value
-            } else {
-                throw Exception("Gender must be Male or Female")
-            }
-        }
-
-//    private var gender: String = ""
-//    public fun getGender() : String {
-//        return gender
-//    }
-//    public fun setGender(gender: String) {
-//        this.gender = gender
-//    }
+class DerivedTwo : Base() {
+    override val name: String = "DerivedTwo"
+    override fun sayHello() {
+        //super.sayHello()
+        Log.d(javaClass.simpleName, "My name is: ${name} and I do not have any id.")
+    }
 }
