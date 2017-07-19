@@ -13,60 +13,37 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        var base: Base = Base()
-//        base.sayHello()
-//        Log.d(TAG, "onCreate: base.name = ${base.name}")
-//
-//        var derived: Derived = Derived()
-//        derived.sayHello()
-//        Log.d(TAG, "onCreate: derived.name = ${derived.name}")
-//        derived.tellYourName()
-//
-//        var derivedTwo: DerivedTwo = DerivedTwo()
-//        derivedTwo.sayHello()
-//        Log.d(TAG, "onCreate: derivedTwo.name = ${derivedTwo.name}")
-//        derivedTwo.tellYourName()
+        var shapeOne: Shape = Circle(0, 0)
+        var shapeTwo: Shape = Rectangle(100, 100)
 
-        var baseObj: Base = Base()
-        baseObj.sayHello()
-
-        baseObj = Derived()
-        baseObj.sayHello()
-
-        baseObj = DerivedTwo()
-        baseObj.sayHello()
-
+        shapeOne.draw()
+        shapeTwo.draw()
 
         Log.d(TAG, "onCreate: ends")
     }
 }
 
-open class Base {
-    open val name: String = "Base"
+var DRAW_TAG: String = "SampleDrawing"
 
-    fun tellYourName() {
-        Log.d(javaClass.simpleName, "My name is: ${name}.")
-    }
 
-    open fun sayHello() {
-        Log.d("Base", "Hello from Base.")
+// IS-A relationship
+
+abstract class Shape(xPos: Int, yPos: Int) {
+    var x: Int = xPos
+    var y: Int = yPos
+
+    abstract fun draw()
+}
+
+class Circle(xPos: Int, yPos: Int) : Shape(xPos, yPos) {
+    override fun draw() {
+        Log.d(DRAW_TAG, "Drawing circle using circle drawing formula at position (${x}, ${y}).")
     }
 }
 
-class Derived : Base() {
-    val id: Int = 100
-    override val name: String = "Derived"
-
-    override fun sayHello() {
-        //super.sayHello()
-        Log.d(javaClass.simpleName, "My name is: ${name} and my id is: ${id}.")
+class Rectangle(xPos: Int, yPos: Int) : Shape(xPos, yPos) {
+    override fun draw() {
+        Log.d(DRAW_TAG, "Drawing rectangle using rectangle drawing formula at position (${x}, ${y}).")
     }
 }
 
-class DerivedTwo : Base() {
-    override val name: String = "DerivedTwo"
-    override fun sayHello() {
-        //super.sayHello()
-        Log.d(javaClass.simpleName, "My name is: ${name} and I do not have any id.")
-    }
-}
