@@ -13,85 +13,35 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var dog: Dog = Dog()
-        dog.bark()
+        var countryList = mutableListOf<Country>()
+        countryList.add(Country("Bangladesh", "Dhaka"))
 
-        var human: Human = Human()
-        Log.d(LOG_TAG, "I am ${human.javaClass.simpleName}, I have life.")
+        val countryIndia = Country("", "")
+        countryIndia.name = "India"
+        countryIndia.capital = "Delhi"
 
-        var robot: Robot = Robot()
-        var talkingRobot = TalkingRobot()
+        countryList.add(countryIndia)
+        countryList.add(Country("Nepal", "Kathmandu"))
 
-        var moveable: Moveable = dog
-        moveable.move()
-        moveable = human
-        moveable.move()
-        moveable = robot
-        moveable.move()
-        moveable = talkingRobot
-        moveable.move()
+//        for(country in countryList) {
+//            Log.d(TAG, "onCreate: name = ${country.name}, capital = ${country.capital}")
+//        }
 
-        var eatable: Eatable = dog
-        eatable.eat()
-        eatable = human
-        eatable.eat()
+        val (name, capital) = countryIndia // Destructuring
 
-        var speakable: Speakable = human
-        speakable.speak()
-        speakable = talkingRobot
-        speakable.speak()
+        var countrySrilanka = countryIndia.copy(name = "Sri Lanka")
+        countrySrilanka.capital = "Kotte"
 
+        countryList.add(countrySrilanka)
+
+        for ((name, capital) in countryList) {
+            Log.d(TAG, "onCreate: name = $name, capital = $capital")
+        }
 
         Log.d(TAG, "onCreate: ends")
     }
 }
 
-val LOG_TAG = "DemoLogs"
+data class Country(var name: String, var capital: String)
 
-interface Moveable {
-    fun move()
-}
-
-interface Eatable {
-    fun eat()
-}
-
-interface Speakable {
-    fun speak()
-}
-
-abstract class Animal : Moveable, Eatable {
-    val hasLife: Boolean = true
-
-    override fun move() {
-        Log.d(LOG_TAG, "I am ${javaClass.simpleName}, I can move.")
-    }
-
-    override fun eat() {
-        Log.d(LOG_TAG, "I am ${javaClass.simpleName}, I can eat.")
-    }
-}
-
-class Dog : Animal() {
-    fun bark() {
-        Log.d(LOG_TAG, "I am ${javaClass.simpleName}, I can bark.")
-    }
-}
-
-class Human : Animal(), Speakable {
-    override fun speak() {
-        Log.d(LOG_TAG, "I am ${javaClass.simpleName}, I can speak.")
-    }
-}
-
-open class Robot : Moveable {
-    override fun move() {
-        Log.d(LOG_TAG, "I am ${javaClass.simpleName}, I can move.")
-    }
-}
-
-class TalkingRobot : Robot(), Speakable {
-    override fun speak() {
-        Log.d(LOG_TAG, "I am ${javaClass.simpleName}, I can speak.")
-    }
-}
+//class Person(name: String, age: Int)
