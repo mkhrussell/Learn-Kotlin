@@ -3,9 +3,6 @@ package com.example.kotlinbasics
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,39 +13,49 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        var myObject = object {
-//            var x = "X"
-//            fun getName() = "My Object"
-//        }
-//
-//        Log.d(TAG, "myObject: x = ${myObject.x}, getName() = ${myObject.getName()}")
-//
-//        var widgetOne = Widget("Widget 1")
+        //Log.d(TAG, "MyDbConnection: dbName = ${MyDbConnection.dbName}, isOpen = ${MyDbConnection.isOpen()}")
 
-        var btnAdd = findViewById(R.id.btnAdd) as Button
-        var onClickListener = object : View.OnClickListener {
-            override fun onClick(View: View) {
-                Toast.makeText(applicationContext, "Hello from Add Button", Toast.LENGTH_LONG).show()
-            }
-        }
+        //var cookieOne = Cookie()
+        //var cookieTwo = Cookie.create()
 
-        btnAdd.setOnClickListener(onClickListener)
+        //Log.d(TAG, "Cookie: myName = ${Cookie.myName}")
+
+        var cookieThree = Cookie.Factory.create("Cookie Three")
+        Log.d(TAG, "cookieThree: name = ${cookieThree.name}")
+
+        var cookieFour = Cookie.Factory.create("Cookie Four")
+        Log.d(TAG, "cookieThree: name = ${cookieFour.name}")
 
         Log.d(TAG, "onCreate: ends")
     }
 }
 
-//open class Widget(text: String) {
-//    var text: String = text
+//open class DbConnection(dbName: String) {
+//    var dbName: String = dbName
 //}
 //
-//interface Clickable {
-//    fun onClick()
-//}
 //
-//class ClickableWidget(text: String): Widget(text), Clickable {
-//    override fun onClick() {
-//        //do something
+//object MyDbConnection: DbConnection("connection1") {
+//    fun isOpen() = true
+//}
+
+//class Cookie {
+//    companion object {
+//        fun create() = Cookie()
+//        var myName: String = javaClass.simpleName
 //    }
 //}
 
+class Cookie {
+    private constructor()
+
+    var name: String = ""
+
+    companion object Factory {
+        fun create(name: String): Cookie {
+            var ret = Cookie()
+            ret.name = name
+            return ret
+        }
+    }
+}
