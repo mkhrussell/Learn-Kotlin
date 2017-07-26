@@ -4,19 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 
-enum class Answers {
-    YES, NO, NOT_ANSWERED
-}
-
-enum class States {
-    SUCCEEDED,
-    FAILED
-}
-
-enum class Weekdays {
-    MON, TUE, WED, THU, FRI, SAT, SUN
-}
-
 class MainActivity : AppCompatActivity() {
 
     private val TAG: String = javaClass.simpleName
@@ -26,30 +13,44 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.d(TAG, giveAnswer(Answers.NO))
-        Log.d(TAG, giveAnswer(Answers.YES))
-        Log.d(TAG, giveAnswer(Answers.NOT_ANSWERED))
+        debugPrint("Welcome from normal function.")
 
-        if (checkState(49) == States.FAILED) Log.d(TAG, "FAILED")
-        if (checkState(51) == States.SUCCEEDED) Log.d(TAG, "SUCCEEDED")
+        pringString("Welcome from Higher Order Funstion.", this::debugPrint) // Higher order function
 
-        for (day in Weekdays.values()) {
-            Log.d(TAG, "${day.name} = ${day.ordinal}")
+        pringString("Welcome from anonymous function.",
+                fun(message: String): Unit { // Anonymous function
+                    Log.d(TAG, message)
+                }
+        )
+
+        pringString("Welcome from Lambda expression # 1", { message: String -> Log.d(TAG, message) }) // Lambda expression # 1
+
+        pringString("Welcome from Lambda expression # 2", { message -> Log.d(TAG, message) })
+
+        pringString("Welcome from Lambda expression # 3", { Log.d(TAG, it) }) // implicit name of single parameter
+
+        val numbers = listOf<Int>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+        var sumOfEvens = 0
+        numbers.filter { it % 2 == 0 }.forEach {
+            // Use lambda as closure
+            sumOfEvens += it
         }
+
+        Log.d(TAG, "sumOfEvens = $sumOfEvens")
 
         Log.d(TAG, "onCreate: ends")
     }
 
-    fun giveAnswer(ans: Answers): String {
-        when (ans) {
-            Answers.YES -> return "Answered: Yes"
-            Answers.NO -> return "Answered: No"
-            Answers.NOT_ANSWERED -> return "Not answered"
-        }
+    // Function Type: fun1: (param1: T1) -> T2
+    // Higher order functions take another funcion as parameter
+
+    fun pringString(str: String, execFun: (msg: String) -> Unit) {
+        return execFun(str)
     }
 
-    fun checkState(value: Int): States {
-        if (value <= 50) return States.FAILED
-        else return States.SUCCEEDED
+    fun debugPrint(msg: String): Unit {
+
+        Log.d(TAG, msg)
     }
 }
