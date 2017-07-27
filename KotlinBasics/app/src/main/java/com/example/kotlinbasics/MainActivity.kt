@@ -13,44 +13,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        debugPrint("Welcome from normal function.")
+        var personOne = Person("Russell", 30)
 
-        pringString("Welcome from Higher Order Funstion.", this::debugPrint) // Higher order function
+        personOne++
+        personOne++
 
-        pringString("Welcome from anonymous function.",
-                fun(message: String): Unit { // Anonymous function
-                    Log.d(TAG, message)
-                }
-        )
+        Log.d(TAG, "Current age of ${personOne.name} is: ${personOne.age}")
 
-        pringString("Welcome from Lambda expression # 1", { message: String -> Log.d(TAG, message) }) // Lambda expression # 1
+        personOne--
 
-        pringString("Welcome from Lambda expression # 2", { message -> Log.d(TAG, message) })
-
-        pringString("Welcome from Lambda expression # 3", { Log.d(TAG, it) }) // implicit name of single parameter
-
-        val numbers = listOf<Int>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-
-        var sumOfEvens = 0
-        numbers.filter { it % 2 == 0 }.forEach {
-            // Use lambda as closure
-            sumOfEvens += it
-        }
-
-        Log.d(TAG, "sumOfEvens = $sumOfEvens")
+        Log.d(TAG, "Current age of ${personOne.name} is: ${personOne.age}")
 
         Log.d(TAG, "onCreate: ends")
     }
+}
 
-    // Function Type: fun1: (param1: T1) -> T2
-    // Higher order functions take another funcion as parameter
+data class Person(var name: String, var age: Int) {
+    operator fun inc(): Person {
+        this.age++
 
-    fun pringString(str: String, execFun: (msg: String) -> Unit) {
-        return execFun(str)
+        return this
     }
 
-    fun debugPrint(msg: String): Unit {
+    operator fun dec(): Person {
+        this.age--
 
-        Log.d(TAG, msg)
+        return this
     }
+
 }
