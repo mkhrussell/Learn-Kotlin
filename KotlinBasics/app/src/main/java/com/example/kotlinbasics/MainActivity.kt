@@ -13,27 +13,42 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val original = 2000
-        var addedTwo = original.plusTwo()
+        var outerObj = Outer()
+        outerObj.doSomething()
 
-        Log.d(TAG, "$addedTwo")
+        var nestedObj = Outer.Nested() // act like java's static member class
+        nestedObj.doSomething()
 
-        val myCLass1 = MyClass()
-        myCLass1.internalFunc()
-        myCLass1.internalFunc(200)
+        var innerObj1 = outerObj.Inner() // Outer().Inner()
+        innerObj1.doSomething()
 
         Log.d(TAG, "onCreate: ends")
     }
 }
 
-fun Int.plusTwo() = this + 2
+class Outer {
+    private val name: String = "Outer"
 
-class MyClass {
-    fun internalFunc() {
-        Log.d("MainActivity", "I am internal function.")
+    fun doSomething() {
+        Log.d("MainActivity", "I am from outer class and my name is $name.")
     }
-}
 
-fun MyClass.internalFunc(value: Int) {
-    Log.d("MainActivity", "I am extension function. Value = $value")
+    var abc: Int = 200
+
+    class Nested {
+        private val name: String = "Nested"
+
+        fun doSomething() {
+            Log.d("MainActivity", "I am from nested class and my name is $name.")
+        }
+    }
+
+    inner class Inner {
+        private val name: String = "Inner"
+
+        fun doSomething() {
+            Log.d("MainActivity", "I am from inner class and my name is $name. My parent's name is ${this@Outer.name}, property: abc = $abc.")
+        }
+    }
+
 }
