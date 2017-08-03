@@ -6,20 +6,51 @@ import android.util.Log
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        val TAG: String = MainActivity::class.java.simpleName
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val numbers = arrayOf(1, 2, 3, 4, 5)
+        Log.d(TAG, "onCreate: HIT")
+        Log.d(TAG, "savedInstanceState = ${savedInstanceState.toString()}")
+    }
 
-        var sum = 0
-        var index = 0
+    override fun onStart() {
+        super.onStart()
 
-        while (index <= 4) {
-            sum += numbers[index]
-            index++
-        }
+        Log.d(TAG, "onStart: HIT")
+    }
 
-        Log.d("MainActivity", "sum = $sum") // sum == 15
+    override fun onResume() {
+        super.onResume()
+
+        Log.d(TAG, "onResume: HIT")
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        Log.d(TAG, "onPause: HIT")
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        Log.d(TAG, "onStop: HIT")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        Log.d(TAG, "onDestroy: HIT")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+
+        Log.d(TAG, "onRestart: HIT")
     }
 }
