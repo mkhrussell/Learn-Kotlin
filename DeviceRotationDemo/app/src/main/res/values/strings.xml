@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Device Rotation Demo</string>
+    <string name="edt_name">Name</string>
+    <string name="btn_add">Add</string>
+</resources>
