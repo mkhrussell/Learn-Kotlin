@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Intent Demo</string>
+    <string name="btn_send">Send</string>
+    <string name="txv_message_default">I am Display Message Activity</string>
+    <string name="edt_message_hint">Message</string>
+    <string name="edt_message_display">Message Text</string>
+</resources>
