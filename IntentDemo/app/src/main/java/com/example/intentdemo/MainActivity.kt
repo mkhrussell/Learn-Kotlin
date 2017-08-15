@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,15 +39,19 @@ class MainActivity : AppCompatActivity() {
                 val phoneNumber: Uri = Uri.parse("tel:+16465648568")
                 val dialIntent: Intent = Intent(Intent.ACTION_DIAL, phoneNumber)
                 startActivity(dialIntent)
-
-                Log.d(TAG, "btn_implicit_telephone: Clicked")
             }
 
             R.id.btn_implicit_custom -> {
                 val customIntent = Intent("dummy.intent.action.MY_ACTION")
-                startActivity(customIntent)
 
-                Log.d(TAG, "btn_implicit_custom: Clicked")
+                val customIntentChooser = Intent.createChooser(customIntent, "My action handler")
+
+                if(customIntent.resolveActivity(packageManager) != null) {
+                    startActivity(customIntentChooser)
+                    //startActivity(customIntent)
+                } else {
+                    Toast.makeText(applicationContext, "No activity found to handle MY_ACTION", Toast.LENGTH_LONG).show()
+                }
             }
         }
 
